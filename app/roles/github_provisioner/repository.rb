@@ -66,8 +66,9 @@ module GithubProvisioner
         issue = self.issues.where(number: gh_issue[:number]).first
         if issue.nil?
           ::Issue.create!(gh_issue.merge(project: @project))
-        elsif issue.github_status != gh_issue[:github_status]
-          issue.update_attributes!(github_status: gh_issue[:github_status])
+        else
+          gh_issue[:milestone_number] = nil if gh_issue[:milestone_number].nil?
+          issue.update_attributes!(gh_issue)
         end
       end
 
