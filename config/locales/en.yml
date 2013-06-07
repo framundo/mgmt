@@ -2,6 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  errors:
+    unauthorized: "You don't belong to the organization: %{organization}"
   models:
     worked_hours_entry:
       future_date: 'Date cannot be in the future'

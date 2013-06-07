@@ -2,6 +2,10 @@ class Users::CallbacksController < Devise::OmniauthCallbacksController
 
   def github
     auth = request.env["omniauth.auth"]
+    orgs = Github.orgs.list(user: auth.info.name).map {|o| o.login.downcase}
+    unless orgs.include?(organization_name.downcase)
+      return redirect_to root_path, :flash => { :error => t('errors.unauthorized', organization: organization_name) } 
+    end
     @user = User.where(provider: auth.provider, uid: auth.uid).first
     @user = User.create!(user_attributes(auth)) unless @user
     sign_in_and_redirect(@user, event: :authentication)
