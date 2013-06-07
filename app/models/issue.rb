@@ -1,12 +1,12 @@
 class Issue < ActiveRecord::Base
   
   STATUS = %w(
-    not_started
     started
+    rejected
     finished
     accepted
-    rejected
     delivered
+    not_started
   )
   ACTIONS = {
     "start" => "started",
@@ -41,6 +41,12 @@ class Issue < ActiveRecord::Base
 
   belongs_to :project
   has_many :worked_hours_entries
+
+  # Class Methods
+
+  def self.status_list
+    STATUS
+  end
 
   # Instance Methods
 

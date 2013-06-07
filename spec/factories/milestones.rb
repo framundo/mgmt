@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :milestone do
+  	sequence(:number) { |n| n }
     start_date "2013-05-10"
     due_date "2013-05-10"
     estimated_hours "9.99"

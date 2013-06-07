@@ -26,7 +26,9 @@ class Milestone < ActiveRecord::Base
   # end 
 
   def issues
-    Issue.where(milestone_number: number)
+    Issue.where(milestone_number: number).sort do |a,b|
+      Issue.status_list.index(a.status) <=> Issue.status_list.index(b.status)
+    end
   end
 
   def does_not_overlap
